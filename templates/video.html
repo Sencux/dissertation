@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Video for Gender and Age Detection</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background: linear-gradient(135deg, #0052a2, #000b18);
+        font-family: "Poppins", sans-serif;
+      }
+      .container {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        padding: 40px;
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+      }
+      h1 {
+        color: #333;
+        font-weight: 900;
+      }
+      form {
+        margin-top: 20px;
+      }
+      input,
+      select,
+      button {
+        width: 100%;
+        padding: 12px 20px;
+        margin-top: 8px;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        transition: border-color 0.3s;
+      }
+      input:focus,
+      select:focus,
+      button:focus {
+        border-color: #7ad7f0;
+        outline: none;
+      }
+      button {
+        background-color: #7ad7f0;
+        color: white;
+        border: none;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        letter-spacing: 1px;
+      }
+      button:hover {
+        background-color: #7ad7f0;
+      }
+      .spinner {
+        display: none; /* Hidden by default */
+        position: fixed; /* Fixed position */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000; /* High z-index */
+        width: 80px;
+        height: 80px;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="none" stroke="%239C27B0" stroke-width="5" stroke-linecap="round" stroke-dasharray="31.415, 31.415" transform="rotate(72 25 25)"><animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" values="0 25 25;360 25 25" keyTimes="0;1"></animateTransform></circle></svg>');
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Upload Video for Gender and Age Detection</h1>
+      <form
+        id="videoForm"
+        action="/process_video"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <input type="file" name="video" required accept="video/*" />
+        <p>Select the prediction model:</p>
+        <select name="model">
+          <option value="MYCNN">MYCNN</option>
+          <option value="InceptionV3">InceptionV3</option>
+          <option value="ResNet50">ResNet50</option>
+          <option value="ResNet152v2">ResNet152v2</option>
+          <option value="VGG16">VGG16</option>
+          <option value="VGG19">VGG19</option>
+          <option value="DenseNet201">DenseNet201</option>
+        </select>
+        <button type="submit" class="btn">Process Video</button>
+      </form>
+      <a href="/" style="color: #6e8efb; margin-top: 20px; display: block"
+        >Back to Home</a
+      >
+    </div>
+    <div class="spinner"></div>
+    <script>
+      document
+        .getElementById("videoForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          console.log("Form submission intercepted, displaying spinner.");
+
+          const spinner = document.querySelector(".spinner");
+          spinner.style.display = "block";
+
+          const formData = new FormData(this);
+          fetch("/process_video", {
+            method: "POST",
+            body: formData,
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.redirect) {
+                window.location.href = data.redirect; // Redirects to the result video URL
+              } else {
+                console.error("Failed to process video:", data.error);
+                spinner.style.display = "none";
+              }
+            })
+            .catch((error) => {
+              console.error("Error processing the video:", error);
+              spinner.style.display = "none";
+            });
+        });
+    </script>
+  </body>
+</html>

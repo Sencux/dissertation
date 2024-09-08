@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Real-time Feed</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        background: linear-gradient(135deg, #0052a2, #000b18);
+        margin: 0;
+        padding: 20px;
+        color: #333;
+      }
+      h1 {
+        color: #0056b3;
+        text-align: center;
+      }
+      div.container {
+        background: white;
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+      select,
+      button {
+        padding: 10px;
+        margin-top: 10px;
+        border: none;
+        border-radius: 5px;
+        width: calc(100% - 20px);
+        transition: all 0.3s;
+      }
+      select {
+        background-color: #e9ecef;
+      }
+      select:hover,
+      select:focus {
+        background-color: #dee2e6;
+      }
+      button {
+        background-color: #007bff;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s, box-shadow 0.3s;
+      }
+      button:hover {
+        background-color: #0056b3;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-top: 20px;
+        transition: opacity 0.3s;
+      }
+      a {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        color: #007bff;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      a:hover {
+        color: #0056b3;
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Real-time Age and Gender Prediction</h1>
+      <div>
+        <p>Select a prediction model:</p>
+        <select id="model">
+          <option value="MYCNN">MYCNN</option>
+          <option value="InceptionV3">InceptionV3</option>
+          <option value="ResNet50">ResNet50</option>
+          <option value="ResNet152v2">ResNet152v2</option>
+          <option value="VGG16">VGG16</option>
+          <option value="VGG19">VGG19</option>
+          <option value="DenseNet201">DenseNet201</option>
+        </select>
+        <button onclick="startVideo()">Start Real-Time Feed</button>
+      </div>
+      <div>
+        <img
+          src="static/photos/detectionicon.png"
+          id="videoFeed"
+          alt="Video feed"
+        />
+      </div>
+      <script>
+        function startVideo() {
+          const model = document.getElementById("model").value;
+          const videoFeed = document.getElementById("videoFeed");
+          videoFeed.src = `/video_feed?model=${model}`;
+          videoFeed.style.opacity = "0.5";
+          videoFeed.onload = function () {
+            this.style.opacity = "1";
+          };
+          videoFeed.onerror = function () {
+            alert(
+              "Error loading the video feed. Please try a different model or check the server."
+            );
+            this.style.opacity = "1";
+          };
+        }
+      </script>
+      <a href="/">Back to Home</a>
+    </div>
+  </body>
+</html>

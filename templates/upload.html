@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Image for Detection</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        background-image: url("static/photos/wallpaper2.jpg");
+        background-size: cover;
+        background-position: center;
+        padding-top: 40px;
+        font-family: "Poppins", sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+      }
+      .container {
+        text-align: center;
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        max-width: 600px;
+      }
+      h1 {
+        color: #0056b3;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        font-size: 2.5em;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      input[type="file"],
+      .btn-primary,
+      select {
+        width: 100%;
+        margin-bottom: 15px;
+      }
+      .btn-primary {
+        background: linear-gradient(145deg, #009bff, #006edd);
+        border: none;
+        padding: 12px 25px;
+        border-radius: 5px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+      a {
+        color: #007bff;
+        transition: color 0.2s ease;
+      }
+      #preview {
+        margin-top: 20px;
+      }
+      .spinner {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 8px solid #f3f3f3;
+        border-top: 8px solid #3498db;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 2s linear infinite;
+      }
+      @keyframes spin {
+        0% {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Upload Image for Gender and Age Detection</h1>
+      <form
+        action="/detect"
+        method="post"
+        enctype="multipart/form-data"
+        id="uploadForm"
+        onsubmit="showSpinner()"
+      >
+        <input type="file" name="file" required onchange="previewFile()" />
+        <div id="preview"></div>
+        <p>Select the prediction model:</p>
+        <select name="model" id="model-select">
+          <option value="MYCNN">MYCNN</option>
+          <option value="InceptionV3">InceptionV3</option>
+          <option value="ResNet50">ResNet50</option>
+          <option value="ResNet152v2">ResNet152v2</option>
+          <option value="VGG16">VGG16</option>
+          <option value="VGG19">VGG19</option>
+          <option value="DenseNet201">DenseNet201</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Detect</button>
+      </form>
+      <a href="/">Back to Home</a>
+    </div>
+    <div class="spinner" id="spinner"></div>
+    <script>
+      function previewFile() {
+        const preview = document.getElementById("preview");
+        const file = document.querySelector("input[type=file]").files[0];
+        const reader = new FileReader();
+        reader.addEventListener(
+          "load",
+          function () {
+            preview.innerHTML = "";
+            let image = new Image();
+            image.src = reader.result;
+            image.style.width = "100%";
+            preview.appendChild(image);
+          },
+          false
+        );
+        if (file) {
+          reader.readAsDataURL(file);
+        }
+      }
+      function showSpinner() {
+        const spinner = document.getElementById("spinner");
+        spinner.style.display = "block";
+      }
+    </script>
+  </body>
+</html>

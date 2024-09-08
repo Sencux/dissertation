@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gender and Age Detection Result</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(120deg, #a1c4fd, #c2e9fb);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .result-container {
+        text-align: center;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 1000px;
+        width: 100%;
+        margin: auto;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+      h1 {
+        color: #0056b3;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        font-size: 2.5em;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      h2 {
+        margin-top: 20px;
+      }
+      .btn-back {
+        margin-top: 20px;
+        background-color: #007bff;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .btn-back:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="result-container">
+      <h1>Gender and Age Detection Result</h1>
+      <img
+        src="{{ url_for('static', filename='detected.jpg') }}"
+        alt="Detected Image"
+      />
+      <h2>Model Used: {{ model_name }}</h2>
+      <button class="btn-back" onclick="window.location.href='/upload'">
+        Back to Upload
+      </button>
+    </div>
+  </body>
+</html>

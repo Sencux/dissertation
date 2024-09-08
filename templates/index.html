@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Age and Gender Prediction</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Global Settings */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif; /* Stylish and modern font */
+        background-image: url("static/photos/wallpaper6.jpg");
+        background-size: cover;
+        background-position: center;
+        color: #333;
+        line-height: 1.6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      /* Container */
+      .container {
+        background: rgba(
+          255,
+          255,
+          255,
+          0.9
+        ); /* Slightly more opaque for better readability */
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        width: auto;
+        max-width: 600px;
+      }
+
+      /* Header */
+      h1 {
+        color: #0056b3; /* Rich blue to match the theme */
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); /* Adding subtle shadow for depth */
+        font-size: 2.5em; /* Larger font size */
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      /* Paragraph */
+      p {
+        margin: 20px 0;
+        font-size: 1.2em;
+      }
+
+      /* Links and List */
+      .list-group {
+        list-style: none;
+        padding: 0;
+      }
+
+      .list-group-item {
+        background: transparent;
+        border: none;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      .list-group-item a {
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+        display: block;
+        transition: all 0.3s;
+        padding: 12px 20px;
+        border-radius: 8px;
+        background-color: #f8f9fa;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .list-group-item:hover a {
+        background-color: #0056b3;
+        color: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container text-center">
+      <h1>Welcome to the Age and Gender Prediction App</h1>
+      <p>Select a feature to use:</p>
+      <ul class="list-group">
+        <li class="list-group-item"><a href="/upload">Upload an Image</a></li>
+        <li class="list-group-item">
+          <a href="/realtime">Real-time Feed Prediction</a>
+        </li>
+        <li class="list-group-item"><a href="/video">Upload a Video</a></li>
+      </ul>
+    </div>
+  </body>
+</html>
